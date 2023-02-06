@@ -28,17 +28,20 @@ public class CustomerController {
         return new ResponseEntity<>(addedCustomer, HttpStatus.OK);
     }
 
+    @Timed(value = "updateAddress.time", description = "Time taken to update customer")
     @PatchMapping(path = "/updateAddress")
     public ResponseEntity<String> updateCustomerAddress(@Valid @RequestBody CustomerPatchDto patchDto) {
         String response = customerService.updateCustomer(patchDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Timed(value = "searchCustomerById.time", description = "Time taken to search customer by id")
     @GetMapping("/customers/{id}")
     public CustomerDto searchCustomerById(@Valid @PathVariable Long id){
         return customerService.searchCustomerById(id);
     }
 
+    @Timed(value = "searchCustomerByName.time", description = "Time taken to search customer by name")
     @PostMapping(path = "/searchByName",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,6 +49,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.searchCustomerByName(customerNameDto), HttpStatus.OK);
     }
 
+    @Timed(value = "getAllCustomers.time", description = "Time taken to search all the customers present")
     @GetMapping("/customers")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = customerService.getCustomers();
