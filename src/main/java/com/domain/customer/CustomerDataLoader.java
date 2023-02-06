@@ -42,7 +42,7 @@ public class CustomerDataLoader implements CommandLineRunner {
 
     private AddressDto createAddressDtoObject(String addressLine1, String addressLine2,
                                               String postalCode, String city,
-                                              String country ){
+                                              String country) {
         AddressDto addressDto = AddressDto.builder()
                 .addressLine1(addressLine1)
                 .addressLine2(addressLine2)

@@ -35,7 +35,7 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = CustomerController.class)
-public class CustomerControllerTest {
+class CustomerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -47,7 +47,7 @@ public class CustomerControllerTest {
     CustomerService customerService;
 
     @Test
-    public void testSearchCustomerById() throws Exception {
+    void testSearchCustomerById() throws Exception {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
                         "/customers/{id}", "1")
@@ -60,7 +60,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testSearchCustomerByName() throws Exception {
+    void testSearchCustomerByName() throws Exception {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("fname")
@@ -82,7 +82,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testGetAllCustomers() throws Exception {
+    void testGetAllCustomers() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
                         "/customers")
                 .accept(MediaType.APPLICATION_JSON);
@@ -95,7 +95,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testAddCustomer() throws Exception {
+    void testAddCustomer() throws Exception {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         Mockito.when(customerService.addCustomer(any())).thenReturn(customerDto);
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -110,7 +110,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testUpdateCustomerAddress() throws Exception {
+    void testUpdateCustomerAddress() throws Exception {
         CustomerPatchDto customerPatchDto = CustomerPatchDto.builder()
                 .customerId(2l)
                 .addressDto(createAddressDtoObject())

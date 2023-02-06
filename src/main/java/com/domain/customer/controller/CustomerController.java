@@ -37,7 +37,7 @@ public class CustomerController {
 
     @Timed(value = "searchCustomerById.time", description = "Time taken to search customer by id")
     @GetMapping("/customers/{id}")
-    public CustomerDto searchCustomerById(@Valid @PathVariable Long id){
+    public CustomerDto searchCustomerById(@Valid @PathVariable Long id) {
         return customerService.searchCustomerById(id);
     }
 

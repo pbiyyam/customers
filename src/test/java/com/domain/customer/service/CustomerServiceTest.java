@@ -27,19 +27,19 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerServiceTest {
+class CustomerServiceTest {
     private CustomerRespository customerRespository;
     private AddressRepository addressRepository;
     private CustomerService customerService;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         customerRespository = Mockito.mock(CustomerRespository.class);
         addressRepository = Mockito.mock(AddressRepository.class);
         customerService = new CustomerService(customerRespository, addressRepository);
     }
     @Test
-    void testAddCustomer(){
+    void testAddCustomer() {
         AddressDto addressDto = createAddressDtoObject();
         CustomerDto customerDto = createCustomerDtoObject(addressDto);
         Customer customer = CustomerMapper.MAPPER.customerDtoToCustomer(customerDto);
@@ -53,7 +53,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testAddCustomerAlreadyExists(){
+    void testAddCustomerAlreadyExists() {
         AddressDto addressDto = createAddressDtoObject();
         CustomerDto customerDto = createCustomerDtoObject(addressDto);
         when(customerRespository.findById(any())).thenReturn(Optional.ofNullable(CustomerMapper.MAPPER.customerDtoToCustomer(customerDto)));
@@ -65,7 +65,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByIdWithExistingCustomer(){
+    void testSearchCustomerByIdWithExistingCustomer() {
         AddressDto addressDto = createAddressDtoObject();
         CustomerDto customerDto = createCustomerDtoObject(addressDto);
         Customer customer = CustomerMapper.MAPPER.customerDtoToCustomer(customerDto);
@@ -78,7 +78,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByIdWithNoCustomerException(){
+    void testSearchCustomerByIdWithNoCustomerException() {
         when(customerRespository.findById(any())).thenReturn(null);
         Exception exception = assertThrows(
                 NoSuchCustomerExistsException.class,
@@ -88,7 +88,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByBothNamesButEmptyResponse(){
+    void testSearchCustomerByBothNamesButEmptyResponse() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("fname")
                 .lastName("lname")
@@ -102,7 +102,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByBothNamesButNullResponse(){
+    void testSearchCustomerByBothNamesButNullResponse() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("fname")
                 .lastName("lname")
@@ -116,7 +116,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByBothNamesWithSuccessResponse(){
+    void testSearchCustomerByBothNamesWithSuccessResponse() {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         List<CustomerDto> customerDtoList = new ArrayList<>();
         customerDtoList.add(customerDto);
@@ -134,7 +134,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByFirstNameWithSuccessResponse(){
+    void testSearchCustomerByFirstNameWithSuccessResponse() {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         List<CustomerDto> customerDtoList = new ArrayList<>();
         customerDtoList.add(customerDto);
@@ -152,7 +152,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByFirstNameWithException(){
+    void testSearchCustomerByFirstNameWithException() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("fname")
                 .lastName("")
@@ -167,7 +167,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByLastNameWithSuccessResponse(){
+    void testSearchCustomerByLastNameWithSuccessResponse() {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         List<CustomerDto> customerDtoList = new ArrayList<>();
         customerDtoList.add(customerDto);
@@ -185,7 +185,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByLastNameWithException(){
+    void testSearchCustomerByLastNameWithException() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("")
                 .lastName("lname")
@@ -200,7 +200,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testSearchCustomerByLastNameWithException1(){
+    void testSearchCustomerByLastNameWithExceptionOne() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("")
                 .lastName("lname")
@@ -215,7 +215,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testSearchCustomerByNameWithNoNames(){
+    public void testSearchCustomerByNameWithNoNames() {
         CustomerNameDto customerNameDto = CustomerNameDto.builder()
                 .firstName("")
                 .lastName("")
@@ -267,7 +267,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testGetAllCustomersWithSuccess(){
+    void testGetAllCustomersWithSuccess() {
         CustomerDto customerDto = createCustomerDtoObject(createAddressDtoObject());
         List<CustomerDto> customerDtoList = new ArrayList<>();
         customerDtoList.add(customerDto);
@@ -279,7 +279,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void testGetAllCustomersWithFailure(){
+    void testGetAllCustomersWithFailure() {
         when(customerRespository.findAll()).thenReturn(List.of());
         List<CustomerDto> response = customerService.getCustomers();
         assertNotNull(response);
